@@ -183,6 +183,24 @@ export const unlikePost = async (postId) => {
   }
 };
 
+// Delete a post
+export const deletePost = async (postId) => {
+  try {
+    const token = getAuthToken();
+    const response = await axios.post(
+      `${baseURL}/api/post/delete/${postId}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.response?.data.message || error.message);
+  }
+};
+
 // Fetch followers of a user
 export const fetchFollower = async (userId) => {
   try {

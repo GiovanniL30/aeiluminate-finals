@@ -47,3 +47,20 @@ export const unfollowUser = async (followerID, followedID) => {
     throw new Error("Failed to unfollow");
   }
 };
+
+/** 
+* Delete a post
+* @affectedDatabase = posts
+*/
+export const deletePost = async (postID) => {
+  const query = "DELETE FROM posts WHERE postID = ?";
+
+  try{
+    const [result] = await connection.query(query, postID);
+    return result.affectedRows > 0;
+  } catch (err) {
+    console.error("Error deleting the post", err);
+    throw new Error("Failed to delete post")
+  }
+
+}

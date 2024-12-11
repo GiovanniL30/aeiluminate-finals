@@ -19,6 +19,7 @@ import {
   useUnlikePost,
   useUserFollower,
   useUserFollowing,
+  useDeletePost,
 } from "../../_api/@react-client-query/query.js";
 import PostCardLoading from "./loaders/PostCardLoading.jsx";
 import CommentPopUp from "./CommentPopUp.jsx";
@@ -31,6 +32,7 @@ const PostCard = ({ postID, caption, images, userID, createdAt, otherStyle }) =>
   const [isShowComment, setIsShowComment] = useState(false);
   const likePostQuery = useLikePost();
   const unlikePostQuery = useUnlikePost();
+  const deletePostQuery = useDeletePost();
   const { isLoading, isError, data } = usePostInformation(postID);
   const { user } = useAuthContext();
 

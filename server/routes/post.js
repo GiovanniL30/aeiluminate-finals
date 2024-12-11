@@ -9,6 +9,7 @@ import {
   unlikeController,
   uploadLineController,
   uploadPostController,
+  deletePostController,
 } from "../controllers/postsController.js";
 import { upload } from "../multer.js";
 import { authenticateUserToken } from "../middleware/authenticateToken.js";
@@ -36,6 +37,9 @@ postRouter.post("/post/unlike/:id", authenticateUserToken, unlikeController);
 
 /** Add a comment */
 postRouter.post("/post/comment/:id", authenticateUserToken, addCommentController);
+
+/** Delete a post */
+postRouter.post("/post/delete/:id", authenticateUserToken, deletePostController)
 
 /**
  * ================================================================

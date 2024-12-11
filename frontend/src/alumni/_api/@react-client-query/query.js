@@ -7,6 +7,7 @@ import {
   fetchPostInformation,
   likePost,
   unlikePost,
+  deletePost,
   followUserRequest,
   unfollowUserRequest,
   checkFollowingStatusRequest,
@@ -135,6 +136,18 @@ export const useUnlikePost = () => {
 
   return useMutation({
     mutationFn: (postId) => unlikePost(postId),
+    onSuccess: (_, postId) => client.invalidateQueries(["post_comment_like_count", postId]),
+  });
+};
+
+/**
+ * React query to unlike a post
+ */
+ export const useDeletePost = () => {
+  const client = useQueryClient();
+
+  return useMutation({
+    mutationFn: (postId) => deletePost(postId),
     onSuccess: (_, postId) => client.invalidateQueries(["post_comment_like_count", postId]),
   });
 };

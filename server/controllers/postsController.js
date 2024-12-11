@@ -3,7 +3,7 @@ import crypto from "crypto";
 import { storage } from "../appwriteconfig.js";
 import { addNewPost, addNewMedia, addLike, addComment, createAlbum } from "../mysqlQueries/addQueries.js";
 import { getPosts, getMedia, getPostStats, getPostComments, getUserPosts } from "../mysqlQueries/readQueries.js";
-import { unlikePost } from "../mysqlQueries/deleteQueries.js";
+import { unlikePost, deletePost } from "../mysqlQueries/deleteQueries.js";
 
 /**
  * Inserts a new Post on the Database
@@ -172,7 +172,7 @@ export const likeController = async (req, res, next) => {
 
 /**
  *
- * Unline a post
+ * Unlike a post
  *
  *
  * @method GET
@@ -238,6 +238,29 @@ export const addCommentController = async (req, res, next) => {
     res.status(200).json(result);
   } catch (error) {
     console.error("Error in adding comment to the post:", error);
+    return res.status(500).json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+/**
+ *
+ * Delete a post
+ *
+ *
+ * @method GET
+ */
+ export const deletePostController = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { userId } = req;
+
+    const result = await deletePost(id, userId);
+
+    if (!result) throw new Error("Failed to delete the post");
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error in deleting the post:", error);
     return res.status(500).json({ message: error.message || "Internal Server Error" });
   }
 };
