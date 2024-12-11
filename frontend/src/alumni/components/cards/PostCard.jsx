@@ -73,7 +73,7 @@ const PostCard = ({ postID, caption, images, userID, createdAt, otherStyle }) =>
           </p>
         </div>
 
-        <div className="flex gap-3 items-center justify-between sm:justify-center mt-2 sm:mt-0">
+        <div className="flex gap-3 items-center justify-between sm:justify-center mt-2 sm:mt-0 relative">
           <p className="text-sm text-light_text">{timeAgo(createdAt)}</p>
           <div>
 
